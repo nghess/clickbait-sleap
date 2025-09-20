@@ -60,15 +60,15 @@ def export_frozen_graph(model, preds, output_path):
 
 #Single instance model (using full picture for now...)
 
-runs_folder = r"A:/clickbait-sleap/models/"
+runs_folder = f"A:/git-repos/clickbait-sleap/"
 
-single_instance_model_path = runs_folder + "/" + r"241211_201049.single_instance.n=197/best_model.h5"
+single_instance_model_path = runs_folder + f"clickbait-motivate-sparse/best_model.h5"
 single_instance_model = tf.keras.models.load_model(single_instance_model_path, compile = False)
 
 model = SingleInstanceInferenceModel(
     SingleInstanceInferenceLayer(keras_model=single_instance_model)
 )
 
-preds = model.predict(np.zeros((1, 976, 448, 1), dtype="uint8"))
+preds = model.predict(np.zeros((1, 992, 448, 1), dtype="uint8"))
 
 export_frozen_graph(model, preds, Path(runs_folder))
