@@ -1,0 +1,34 @@
+{
+    "frozen_model_inputs": [
+        "Tensor(\"x:0\", shape=(None, 992, 448, 1), dtype=uint8)"
+    ],
+    "frozen_model_outputs": [
+        "Tensor(\"Identity:0\", shape=(None, 1, 3), dtype=float32)",
+        "Tensor(\"Identity_1:0\", shape=(None, 1, 3, 2), dtype=float32)"
+    ],
+    "model_structured_input_signature": [
+        [],
+        {
+            "input_1": "TensorSpec(shape=(None, 992, 448, 1), dtype=tf.uint8, name='input_1')"
+        }
+    ],
+    "model_structured_outputs_signature": {
+        "instance_peak_vals": "TensorSpec(shape=(None, 1, 3), dtype=tf.float32, name='instance_peak_vals')",
+        "instance_peaks": "TensorSpec(shape=(None, 1, 3, 2), dtype=tf.float32, name='instance_peaks')"
+    },
+    "predicted_tensors": {
+        "instance_peak_vals": {
+            "device": "N/A",
+            "dtype": "float32",
+            "shape": "(1, 1, 3)",
+            "type": "ndarray"
+        },
+        "instance_peaks": {
+            "device": "N/A",
+            "dtype": "float32",
+            "shape": "(1, 1, 3, 2)",
+            "type": "ndarray"
+        }
+    },
+    "unragged_outputs": true
+}

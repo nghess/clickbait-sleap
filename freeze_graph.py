@@ -60,7 +60,7 @@ def export_frozen_graph(model, preds, output_path):
 
 #Single instance model (using full picture for now...)
 
-runs_folder = f"A:/git-repos/clickbait-sleap/"
+runs_folder = f"D:/github-repos/clickbait-sleap/"
 
 single_instance_model_path = runs_folder + f"clickbait-motivate-sparse/best_model.h5"
 single_instance_model = tf.keras.models.load_model(single_instance_model_path, compile = False)

@@ -411,8 +411,8 @@
             "input_scaling": 0.5,
             "pad_to_stride": 16,
             "resize_and_pad_to_target": true,
-            "target_height": 1968,
-            "target_width": 888
+            "target_height": 1984,
+            "target_width": 892
         },
         "instance_cropping": {
             "center_on_part": null,

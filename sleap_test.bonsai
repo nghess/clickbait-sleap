@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.1"
+<WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:pylon="clr-namespace:Bonsai.Pylon;assembly=Bonsai.Pylon"
                  xmlns:sleap="clr-namespace:Bonsai.Sleap;assembly=Bonsai.Sleap"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:FileCapture">
-          <cv:FileName>A:\clickbait-data\1006\full9\11282024_1006_full9.avi</cv:FileName>
-          <cv:PlaybackRate>0</cv:PlaybackRate>
+          <cv:FileName>D:\clickbait-place\data\tetrode_ob-hc\7003\a3\05062025_7003_a3.avi</cv:FileName>
+          <cv:PlaybackRate>200</cv:PlaybackRate>
           <cv:StartPosition>0</cv:StartPosition>
           <cv:PositionUnits>Frames</cv:PositionUnits>
           <cv:Loop>false</cv:Loop>
@@ -17,17 +18,69 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Grayscale" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Resize">
+          <cv:Size>
+            <cv:Width>448</cv:Width>
+            <cv:Height>992</cv:Height>
+          </cv:Size>
+          <cv:Interpolation>Cubic</cv:Interpolation>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="pylon:PylonCapture">
+            <pylon:SerialNumber>24714376</pylon:SerialNumber>
+            <pylon:ParameterFile>D:\clickbait-place\acA2040-90umNIR_24714376.pfs</pylon:ParameterFile>
+            <pylon:GrabStrategy>OneByOne</pylon:GrabStrategy>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Image</Selector>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="cv:Resize">
+            <cv:Size>
+              <cv:Width>448</cv:Width>
+              <cv:Height>992</cv:Height>
+            </cv:Size>
+            <cv:Interpolation>Cubic</cv:Interpolation>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Combinator">
         <Combinator xsi:type="sleap:PredictSinglePose">
           <sleap:ModelFileName>frozen_graph.pb</sleap:ModelFileName>
-          <sleap:TrainingConfig>A:\clickbait-sleap\models\241211_201049.single_instance.n=197\training_config.json</sleap:TrainingConfig>
+          <sleap:TrainingConfig>clickbait-motivate-sparse\training_config.json</sleap:TrainingConfig>
           <sleap:PartMinConfidence>0</sleap:PartMinConfidence>
           <sleap:ScaleFactor>1</sleap:ScaleFactor>
           <sleap:ColorConversion xsi:nil="true" />
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="sleap:GetBodyPart">
+          <sleap:Name>nose</sleap:Name>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Position</Selector>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="6" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source2" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
