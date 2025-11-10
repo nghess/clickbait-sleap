@@ -1,0 +1,10 @@
+inference:
+- data_path: 7012_m11_labels.v001.slp
+  models:
+  - C:/clickbait-sleap/analysis-rig-test/models/None_251029_182449.single_instance.n=132/training_config.yaml
+  only_suggested_frames: false
+  output_path: 7012_m11_labels.v001.slp.predictions.slp
+  tracking:
+    tracking.tracker: none
+  type: video
+training: []

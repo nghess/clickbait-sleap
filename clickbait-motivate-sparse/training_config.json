@@ -455,7 +455,7 @@
             "multi_class_bottomup": null,
             "multi_class_topdown": null
         },
-        "base_checkpoint": "S:\\clickbait-motivate\\sleap-model\\models\\250819_011453.single_instance.n=262"
+        "base_checkpoint": "best_model.h5"
     },
     "optimization": {
         "preload_data": true,

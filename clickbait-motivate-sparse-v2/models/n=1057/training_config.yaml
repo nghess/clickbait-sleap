@@ -1,0 +1,163 @@
+data_config:
+  train_labels_path:
+  - C:/clickbait-sleap/analysis-rig-test/clickbait_motivate.v001.slp
+  val_labels_path: null
+  validation_fraction: 0.2
+  test_file_path: null
+  provider: LabelsReader
+  user_instances_only: true
+  data_pipeline_fw: torch_dataset
+  cache_img_path: null
+  use_existing_imgs: false
+  delete_cache_imgs_after_training: true
+  preprocessing:
+    ensure_rgb: false
+    ensure_grayscale: false
+    max_height: 1968
+    max_width: 888
+    scale: 0.5
+    crop_size: null
+    min_crop_size: 100
+  use_augmentations_train: false
+  augmentation_config:
+    intensity:
+      uniform_noise_min: 0.0
+      uniform_noise_max: 1.0
+      uniform_noise_p: 0.25
+      gaussian_noise_mean: 5.0
+      gaussian_noise_std: 1.0
+      gaussian_noise_p: 0.25
+      contrast_min: 0.5
+      contrast_max: 2.0
+      contrast_p: 0.25
+      brightness_min: 0.0
+      brightness_max: 2.0
+      brightness_p: 0.25
+    geometric:
+      rotation_min: -22.5
+      rotation_max: 22.5
+      scale_min: 0.9
+      scale_max: 1.1
+      translate_width: 0.0
+      translate_height: 0.0
+      affine_p: 1.0
+      erase_scale_min: 0.0001
+      erase_scale_max: 0.01
+      erase_ratio_min: 1.0
+      erase_ratio_max: 1.0
+      erase_p: 0.0
+      mixup_lambda_min: 0.01
+      mixup_lambda_max: 0.05
+      mixup_p: 0.0
+  skeletons:
+  - nodes:
+    - name: nose
+    - name: centroid
+    - name: tailbase
+    edges:
+    - source:
+        name: nose
+      destination:
+        name: centroid
+    - source:
+        name: centroid
+      destination:
+        name: tailbase
+    symmetries: []
+    name: Skeleton-1
+model_config:
+  init_weights: default
+  pretrained_backbone_weights: null
+  pretrained_head_weights: null
+  backbone_config:
+    unet:
+      in_channels: 1
+      kernel_size: 3
+      filters: 16
+      filters_rate: 2.0
+      max_stride: 16
+      stem_stride: null
+      middle_block: true
+      up_interpolate: true
+      stacks: 1
+      convs_per_block: 2
+      output_stride: 2
+    convnext: null
+    swint: null
+  head_configs:
+    single_instance:
+      confmaps:
+        part_names:
+        - nose
+        - centroid
+        - tailbase
+        sigma: 2.5
+        output_stride: 2
+    centroid: null
+    centered_instance: null
+    bottomup: null
+    multi_class_bottomup: null
+    multi_class_topdown: null
+  total_params: 1953171
+trainer_config:
+  train_data_loader:
+    batch_size: 18
+    num_workers: 0
+    shuffle: true
+  val_data_loader:
+    batch_size: 18
+    num_workers: 0
+    shuffle: false
+  model_ckpt:
+    save_top_k: 1
+    save_last: false
+  trainer_devices: auto
+  trainer_device_indices: null
+  trainer_accelerator: cuda
+  profiler: null
+  trainer_strategy: auto
+  enable_progress_bar: true
+  min_train_steps_per_epoch: 200
+  train_steps_per_epoch: 200
+  visualize_preds_during_training: true
+  keep_viz: false
+  max_epochs: 250
+  seed: null
+  use_wandb: false
+  save_ckpt: true
+  ckpt_dir: C:/clickbait-sleap/analysis-rig-test/models
+  run_name: 251101_025716.single_instance.n=856_251101_152247.single_instance.n=936_251101_160544.single_instance.n=936_251102_041324.single_instance.n=1057
+  resume_ckpt_path: null
+  wandb:
+    entity: ''
+    project: ''
+    name: ''
+    save_viz_imgs_wandb: false
+    api_key: ''
+    wandb_mode: null
+    prv_runid: ''
+    group: ''
+    current_run_id: null
+  optimizer_name: Adam
+  optimizer:
+    lr: 0.0001
+    amsgrad: false
+  lr_scheduler: null
+  early_stopping:
+    min_delta: 1.0e-08
+    patience: 10
+    stop_training_on_plateau: true
+  online_hard_keypoint_mining:
+    online_mining: false
+    hard_to_easy_ratio: 2.0
+    min_hard_keypoints: 3
+    max_hard_keypoints: null
+    loss_scale: 5.0
+  zmq:
+    controller_port: 55441
+    controller_polling_timeout: 10
+    publish_port: 55440
+name: ''
+description: ''
+sleap_nn_version: 0.0.3
+filename: ''
